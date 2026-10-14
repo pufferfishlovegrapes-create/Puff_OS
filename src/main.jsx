@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BatteryMedium, CalendarDays, ChevronRight, Cloud, Folder, Globe as Globe2, Grid2x2X as Grid2X2, Image, Maximize2, Minus, Music2, Search, Settings, Sparkles, StickyNote, Terminal, Wifi, X } from 'lucide-react';
+import { BatteryMedium, CalendarDays, ChevronRight, Cloud, Folder, Globe as Globe2, Image, Maximize2, Minus, Music2, Search, Settings, Sparkles, StickyNote, Terminal, Wifi, X } from 'lucide-react';
 import './styles.css';
 
 const appCatalog = {
@@ -72,7 +72,7 @@ function App() {
     <header className="topbar"><div className="brand"><PuffMark small /><span>Puff</span></div><div className="topbar-center">{formattedDate}<span className="topbar-dot" /> <span className="weather"><Cloud size={14} /> 68°F</span></div><div className="system-tray"><Wifi size={16} /><BatteryMedium size={17} /><span>{formattedTime}</span><button className="profile-dot">A</button></div></header>
     <div className="desktop-area" onClick={() => setStartOpen(false)}><div className="desktop-icons"><AppIcon appKey="files" onClick={() => openApp('files')} /><AppIcon appKey="browser" onClick={() => openApp('browser')} /><AppIcon appKey="gallery" onClick={() => openApp('gallery')} /><AppIcon appKey="terminal" onClick={() => openApp('terminal')} /></div>{openWindows.map((key) => <Window key={key} appKey={key} windowData={windowState[key] || { minimized: false, maximized: false }} onClose={closeApp} onMinimize={(app) => updateWindow(app, { minimized: !windowState[app].minimized })} onMaximize={(app) => updateWindow(app, { maximized: !windowState[app].maximized, minimized: false })} onFocus={setActiveKey} zIndex={activeKey === key ? 10 : 2} />)}</div>
     {startOpen && <div onClick={(event) => event.stopPropagation()}><StartMenu onOpen={openApp} onClose={() => setStartOpen(false)} /></div>}
-    <footer className="taskbar"><button className={`launcher ${startOpen ? 'selected' : ''}`} onClick={(event) => { event.stopPropagation(); setStartOpen(!startOpen); }}><Grid2X2 size={19} /></button><div className="task-apps">{openWindows.map((key) => { const Icon = appCatalog[key].icon; return <button key={key} className={`task-app ${activeKey === key ? 'active' : ''}`} onClick={() => { setActiveKey(key); updateWindow(key, { minimized: false }); }}><Icon size={17} /><span>{appCatalog[key].title}</span></button>; })}</div><div className="task-right"><CalendarDays size={16} /><span>Tuesday, October 14</span></div></footer>
+    <footer className="taskbar" aria-label="Puff taskbar"><button className={`launcher ${startOpen ? 'selected' : ''}`} onClick={(event) => { event.stopPropagation(); setStartOpen(!startOpen); }} aria-label="Open app launcher"><PuffMark small /></button><div className="task-apps">{openWindows.map((key) => { const Icon = appCatalog[key].icon; return <button key={key} className={`task-app ${activeKey === key ? 'active' : ''}`} onClick={() => { setActiveKey(key); updateWindow(key, { minimized: false }); }}><Icon size={17} /><span>{appCatalog[key].title}</span></button>; })}</div><div className="task-right"><CalendarDays size={16} /><span>Tuesday, October 14</span></div></footer>
   </main>;
 }
 
